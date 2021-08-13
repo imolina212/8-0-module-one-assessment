@@ -54,7 +54,7 @@ function getHighestMetascore(movies) {
       highestMetascore = movies[i].metascore;
     }
   }
-  return highestMetascore;
+  return Number(highestMetascore);
 }
 // console.log(getHighestMetascore(exampleMovies));
 /**
@@ -117,7 +117,16 @@ function countByRating(movies) {
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  obj = {};
+  for (let i = 0; i < movies.length; i++) {
+    if (movies[i].imdbID === id) {
+      return (obj = movies[i]);
+    }
+  }
+  return null;
+}
+// console.log(findById(exampleMovies, "tt1979376"));
 
 /**
  * filterByGenre()
