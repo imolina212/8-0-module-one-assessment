@@ -48,13 +48,14 @@ function getAllMovieTitles(movies) {
  *  //> 96
  */
 function getHighestMetascore(movies) {
-  highestMetascore = Number(movies[0].metascore);
-  for (let i = 1; i < movies.length; i++) {
-    if (movies[i].metascore > highestMetascore) {
-      highestMetascore = movies[i].metascore;
+  let highestMetascore = 0;
+
+  for (let i = 0; i < movies.length; i++) {
+    if (Number(movies[i].metascore) > highestMetascore) {
+      highestMetascore = Number(movies[i].metascore);
     }
   }
-  return Number(highestMetascore);
+  return highestMetascore;
 }
 // console.log(getHighestMetascore(exampleMovies));
 /**
@@ -148,7 +149,15 @@ function findById(movies, id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  let matchingGenre = [];
+  for (let i = 0; i < movies.length; i++) {
+    if (movies[i].genre.toUpperCase().includes(genre.toUpperCase())) {
+      matchingGenre.push(movies[i]);
+    }
+  }
+  return matchingGenre;
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -172,7 +181,17 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let moviesReleased = [];
+
+  for (let movie of movies) {
+    if (year >= Number(movie.released.slice(-4))) {
+      // console.log(movie);
+      moviesReleased.push(movie);
+    }
+  }
+  return moviesReleased;
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -185,7 +204,35 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  if (!movies.length) {
+    return null;
+  }
+  //helper function
+  function convertToNumber(numberString) {
+    let num = "";
+    for (let char of numberString) {
+      if (!isNaN(Number(char))) {
+        num += char;
+      }
+    }
+    return Number(num);
+  }
+
+  let numberOneBoxOffice = movies[0];
+
+  for (let currMovie of movies) {
+    //iterating through the movies array movie is the currMovie object
+    if (
+      convertToNumber(currMovie.boxOffice) >
+      convertToNumber(numberOneBoxOffice.boxOffice)
+    ) {
+      // if the current movie we are looking at has a boxoffice greater than our current boxoffice numberOneBoxOffice then proceed
+      numberOneBoxOffice = currMovie; //reassigns the value of numberOneBoxOffice since the currMovie has a greater boxoffice
+    }
+  }
+  return numberOneBoxOffice.title;
+}
 
 // Do not change anything below this line.
 module.exports = {
