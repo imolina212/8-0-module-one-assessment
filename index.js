@@ -35,7 +35,7 @@ function getAllMovieTitles(movies) {
   }
   return movieArr;
 }
-console.log(getAllMovieTitles(exampleMovies));
+// console.log(getAllMovieTitles(exampleMovies));
 /**
  * getHighestMetascore()
  * -----------------------------
@@ -44,11 +44,19 @@ console.log(getAllMovieTitles(exampleMovies));
  * @returns {number} The highest `metascore` of all movies.
  *
  * EXAMPLE:
- *  getHighestMetascore(movies);
+ *  c;
  *  //> 96
  */
-function getHighestMetascore() {}
-
+function getHighestMetascore(movies) {
+  highestMetascore = Number(movies[0].metascore);
+  for (let i = 1; i < movies.length; i++) {
+    if (movies[i].metascore > highestMetascore) {
+      highestMetascore = movies[i].metascore;
+    }
+  }
+  return highestMetascore;
+}
+// console.log(getHighestMetascore(exampleMovies));
 /**
  * getAverageIMDBRating()
  * -----------------------------
